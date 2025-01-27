@@ -1,0 +1,50 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# mortgage
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+The goal of mortgage is to help understand the true cost of a mortgage. It also can help you easily compare between different mortgages. It is based on the [Python library of the same name](https://mortgage.readthedocs.io/en/latest/).
+
+## Installation
+
+You can install the development version of mortgage from [GitHub](https://github.com/) with:
+
+``` r
+# install.packages("devtools")
+devtools::install_github("parmsam/mortgage")
+```
+
+## Example
+
+This is a basic example which shows you how to solve a common problem:
+
+```{r example}
+library(mortgage)
+# Example usage
+loan <- Loan$new(principal=200000, interest=.06, term=30)
+loan
+```
+
+```{r}
+loan$summarize()
+```
+
+
+```{r}
+loan$amortize()
+```
