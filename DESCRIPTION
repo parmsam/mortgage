@@ -2,8 +2,7 @@ Package: mortgage
 Title: Understand the true cost of a mortgage
 Version: 0.0.0.9000
 Authors@R: 
-    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"),
-           comment = c(ORCID = "YOUR-ORCID-ID"))
+    person("Sam", "Parmar", , "", role = c("aut", "cre"))
 Description: Create and calculate various mortgage statistics and easily compare between different mortgages.
 License: MIT + file LICENSE
 Encoding: UTF-8

@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of mortgage is to help understand the true cost of a mortgage. It also can help you easily compare between different mortgages. It is based on the [Python library of the same name](https://mortgage.readthedocs.io/en/latest/).
+The goal of mortgage is to help understand the true cost of a mortgage. It also can help you easily compare between different mortgages. It is based on the [Python library of the same name](https://mortgage.readthedocs.io/en/latest/). The package is built using [R6](https://r6.r-lib.org/).
 
 ## Installation
 
