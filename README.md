@@ -28,7 +28,7 @@ This is a basic example which shows you how to solve a common problem:
 
 ``` r
 library(mortgage)
-# Example usage 
+# Example usage  
 loan <- Loan$new(principal=200000, interest=.06, term=30)
 loan
 #> <Loan principal=200000.00, interest=0.06, term=30.0>
@@ -79,12 +79,9 @@ loan3 <- Loan$new(principal = 200000, interest = 0.045, term = 20, term_unit = "
 loan_comparison <- LoanComparison$new(loans = list(loan1, loan2, loan3))
 loan_comparison
 #> Loan Comparison Object
-#> Loan 1:
-#> <Loan principal=100000.00, interest=0.05, term=30.0>
-#> Loan 2:
-#> <Loan principal=150000.00, interest=0.04, term=15.0>
-#> Loan 3:
-#> <Loan principal=200000.00, interest=0.04, term=20.0>
+#> Loan 1: <Loan principal=100000.00, interest=0.05, term=30.0>
+#> Loan 2: <Loan principal=150000.00, interest=0.04, term=15.0>
+#> Loan 3: <Loan principal=200000.00, interest=0.04, term=20.0>
 ```
 
 ``` r

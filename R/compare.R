@@ -81,7 +81,7 @@ LoanComparison <- R6::R6Class(
     print = function() {
       cat("Loan Comparison Object\n")
       for (i in seq_along(self$loans)) {
-        cat("Loan ", i, ":\n", sep = "")
+        cat("Loan ", i, ": ", sep = "")
         print(self$loans[[i]])
         cat("\n")
       }
