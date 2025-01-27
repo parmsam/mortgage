@@ -48,3 +48,31 @@ loan$summarize()
 ```{r}
 loan$amortize()
 ```
+## Compare loan objects
+
+```{r}
+# Create some Loan objects
+loan1 <- Loan$new(principal = 100000, interest = 0.05, term = 30, term_unit = "years", compounded = "monthly")
+loan2 <- Loan$new(principal = 150000, interest = 0.04, term = 15, term_unit = "years", compounded = "monthly")
+loan3 <- Loan$new(principal = 200000, interest = 0.045, term = 20, term_unit = "years", compounded = "monthly")
+# Create a LoanComparison object
+loan_comparison <- LoanComparison$new(loans = list(loan1, loan2, loan3))
+loan_comparison
+```
+
+```{r}
+# Compare total interest
+total_interest_comparison <- loan_comparison$compare_total_interest()
+print(total_interest_comparison)
+# Compare monthly payments
+monthly_payments_comparison <- loan_comparison$compare_monthly_payments()
+print(monthly_payments_comparison)
+# Compare total payments
+total_payments_comparison <- loan_comparison$compare_total_payments()
+print(total_payments_comparison)
+```
+
+```{r}
+# Print a summary of the loan comparison
+loan_comparison$summarize()
+```

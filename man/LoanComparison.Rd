@@ -22,6 +22,7 @@ A class used to compare multiple loan objects.
 \item \href{#method-LoanComparison-compare_total_payments}{\code{LoanComparison$compare_total_payments()}}
 \item \href{#method-LoanComparison-compare_total_payments_diff}{\code{LoanComparison$compare_total_payments_diff()}}
 \item \href{#method-LoanComparison-summarize}{\code{LoanComparison$summarize()}}
+\item \href{#method-LoanComparison-print}{\code{LoanComparison$print()}}
 \item \href{#method-LoanComparison-clone}{\code{LoanComparison$clone()}}
 }
 }
@@ -89,6 +90,16 @@ Compare difference of total payments between two or more loans in matrix
 Print a summary of the loan comparison
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{LoanComparison$summarize()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-LoanComparison-print"></a>}}
+\if{latex}{\out{\hypertarget{method-LoanComparison-print}{}}}
+\subsection{Method \code{print()}}{
+Print the loan object
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{LoanComparison$print()}\if{html}{\out{</div>}}
 }
 
 }

@@ -74,6 +74,17 @@ LoanComparison <- R6::R6Class(
       print(self$compare_total_payments())
       cat("\nTotal Payments Difference Matrix:\n")
       print(self$compare_total_payments_diff())
+    },
+
+    #' @description
+    #' Print the loan object
+    print = function() {
+      cat("Loan Comparison Object\n")
+      cat("Loans:\n")
+      for (i in seq_along(self$loans)) {
+        cat("Loan ", i, ":\n")
+        print(self$loans[[i]])
+      }
     }
   )
 )
