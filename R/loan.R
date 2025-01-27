@@ -90,9 +90,14 @@ Loan <- R6::R6Class(
       self$total_principal() + self$total_interest()
     },
     #' @description
-    #' Return the percentage of the total payment that is interest
+    #' Return the percentage of the total principal that is interest
     interest_to_principal = function() {
       round(self$total_interest() / self$total_principal() * 100, 1)
+    },
+    #' @description
+    #' Return the percentage of the total amount that is interest
+    interest_to_paid = function() {
+      round(self$total_interest() / self$total_paid() * 100, 1)
     },
     #' @description
     #' Return the number of years to pay off the loan
@@ -103,8 +108,10 @@ Loan <- R6::R6Class(
     #' @description
     #' Return the annual percentage rate (APR) of the loan
     apr = function() {
-      simple_interest <- self$principal * self$interest * 1
-      round((simple_interest / self$principal) * 100, 2)
+      simple_interest <- function(term) {
+        self$principal * self$interest * term
+      }
+      round((simple_interest(term=1) / self$principal) * 100, 2)
     },
 
     #' @description
@@ -167,18 +174,18 @@ Loan <- R6::R6Class(
     #' @description
     #' Print a summary of the loan
     summarize = function() {
-      cat(sprintf("Original Balance:         %s%.2f\n", self$currency, self$principal))
-      cat(sprintf("Interest Rate:            %.2f%%\n", self$interest * 100))
-      cat(sprintf("APY:                      %.2f%%\n", self$apy()))
-      cat(sprintf("APR:                      %.2f%%\n", self$apr()))
-      cat(sprintf("Term:                     %.1f %s\n", self$term, self$term_unit))
-      cat(sprintf("Monthly Payment:          %s%.2f\n", self$currency, self$monthly_payment()))
+      cat(sprintf("Original Balance:         %s%11.2f\n", self$currency, self$principal))
+      cat(sprintf("Interest Rate:             %11.2f%%\n", self$interest * 100))
+      cat(sprintf("APY:                       %11.2f%%\n", self$apy()))
+      cat(sprintf("APR:                       %11.2f%%\n", self$apr()))
+      cat(sprintf("Term:                      %11.1f %s\n", self$term, self$term_unit))
+      cat(sprintf("Monthly Payment:          %s%11.2f\n", self$currency, self$monthly_payment()))
       cat("\n")
-      cat(sprintf("Total principal payments: %s%.2f\n", self$currency, self$total_principal()))
-      cat(sprintf("Total interest payments:  %s%.2f\n", self$currency, self$total_interest()))
-      cat(sprintf("Total payments:           %s%.2f\n", self$currency, self$total_paid()))
-      cat(sprintf("Interest to Principal:    %.1f%%\n", self$interest_to_principal()))
-      cat(sprintf("Years to pay:             %.1f\n", self$years_to_pay()))
+      cat(sprintf("Total principal payments: %s%11.2f\n", self$currency, self$total_principal()))
+      cat(sprintf("Total interest payments:  %s%11.2f\n", self$currency, self$total_interest()))
+      cat(sprintf("Total payments:           %s%11.2f\n", self$currency, self$total_paid()))
+      cat(sprintf("Interest to Principal:     %11.2f%%\n", self$interest_to_principal()))
+      cat(sprintf("Years to pay:              %11.1f\n", self$years_to_pay()))
     },
 
     #' @description

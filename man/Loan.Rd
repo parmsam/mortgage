@@ -35,6 +35,7 @@ A loan used to create and calculate various mortgage statistics.
 \item \href{#method-Loan-total_interest}{\code{Loan$total_interest()}}
 \item \href{#method-Loan-total_paid}{\code{Loan$total_paid()}}
 \item \href{#method-Loan-interest_to_principal}{\code{Loan$interest_to_principal()}}
+\item \href{#method-Loan-interest_to_paid}{\code{Loan$interest_to_paid()}}
 \item \href{#method-Loan-years_to_pay}{\code{Loan$years_to_pay()}}
 \item \href{#method-Loan-apr}{\code{Loan$apr()}}
 \item \href{#method-Loan-apy}{\code{Loan$apy()}}
@@ -114,9 +115,19 @@ Return the total amount paid on the loan
 \if{html}{\out{<a id="method-Loan-interest_to_principal"></a>}}
 \if{latex}{\out{\hypertarget{method-Loan-interest_to_principal}{}}}
 \subsection{Method \code{interest_to_principal()}}{
-Return the percentage of the total payment that is interest
+Return the percentage of the total principal that is interest
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Loan$interest_to_principal()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Loan-interest_to_paid"></a>}}
+\if{latex}{\out{\hypertarget{method-Loan-interest_to_paid}{}}}
+\subsection{Method \code{interest_to_paid()}}{
+Return the percentage of the total amount that is interest
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Loan$interest_to_paid()}\if{html}{\out{</div>}}
 }
 
 }
