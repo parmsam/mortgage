@@ -30,7 +30,7 @@ This is a basic example which shows you how to solve a common problem:
 library(mortgage)
 # Example usage  
 loan <- Loan$new(principal=200000, interest=.06, term=30)
-loan
+loan 
 #> <Loan principal=200000.00, interest=0.06, term=30.0>
 ```
 
