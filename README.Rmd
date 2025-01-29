@@ -48,6 +48,15 @@ loan$summarize()
 ```{r}
 loan$amortize()
 ```
+You can also plot the amortization schedule of the loan object using the `plot` method. And you can get the tipping point of the loan.
+
+
+```{r, fig.width=7,fig.height=4}
+plot(loan) #OR loan$plot()
+
+loan$tipping_point()
+```
+
 ## Compare loan objects
 
 ```{r}

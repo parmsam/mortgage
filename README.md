@@ -36,6 +36,8 @@ loan
 
 ``` r
 loan$summarize()
+#> Home price:               $  200000.00
+#> Downpayment:              $       0.00
 #> Original Balance:         $  200000.00
 #> Interest Rate:                    6.00%
 #> APY:                              6.17%
@@ -52,20 +54,35 @@ loan$summarize()
 
 ``` r
 loan$amortize()
-#> # A tibble: 360 × 6
-#>    number payment interest principal total_interest balance
-#>     <int>   <dbl>    <dbl>     <dbl>          <dbl>   <dbl>
-#>  1      1   1199.    1000       199.          1000  199801.
-#>  2      2   1199.     999       200.          1999  199601.
-#>  3      3   1199.     998       201.          2997. 199400.
-#>  4      4   1199.     997       202.          3994. 199198.
-#>  5      5   1199.     996.      203.          4990  198994.
-#>  6      6   1199.     995.      204.          5985. 198790.
-#>  7      7   1199.     994.      205.          6979. 198585.
-#>  8      8   1199.     993.      206.          7972. 198379.
-#>  9      9   1199.     992.      207.          8964. 198172.
-#> 10     10   1199.     991.      208.          9955. 197964.
+#> # A tibble: 360 × 7
+#>    number payment interest principal total_interest total_principal balance
+#>     <int>   <dbl>    <dbl>     <dbl>          <dbl>           <dbl>   <dbl>
+#>  1      1   1199.    1000       199.          1000             199. 199801.
+#>  2      2   1199.     999       200.          1999             399. 199601.
+#>  3      3   1199.     998       201.          2997.            600. 199400.
+#>  4      4   1199.     997       202.          3994.            802. 199198.
+#>  5      5   1199.     996.      203.          4990            1006. 198994.
+#>  6      6   1199.     995.      204.          5985.           1210. 198790.
+#>  7      7   1199.     994.      205.          6979.           1415. 198585.
+#>  8      8   1199.     993.      206.          7972.           1621. 198379.
+#>  9      9   1199.     992.      207.          8964.           1828. 198172.
+#> 10     10   1199.     991.      208.          9955.           2036. 197964.
 #> # ℹ 350 more rows
+```
+
+You can also plot the amortization schedule of the loan object using the
+`plot` method. And you can get the tipping point of the loan.
+
+``` r
+plot(loan) #OR loan$plot()
+```
+
+<img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" />
+
+``` r
+
+loan$tipping_point()
+#> [1] 223
 ```
 
 ## Compare loan objects

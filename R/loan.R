@@ -5,6 +5,8 @@
 #' @import R6
 #' @import dplyr
 #' @import tibble
+#' @import ggplot2
+#' @import scales
 #' @export
 Loan <- R6::R6Class(
   "Loan",
@@ -25,6 +27,8 @@ Loan <- R6::R6Class(
     n_periods = NULL,
     #' @field schedule Amortization schedule
     schedule = NULL,
+    #' @field downpayment Downpayment amount
+    downpayment = NULL,
 
     # Initialize loan object
     #' @description
@@ -35,9 +39,15 @@ Loan <- R6::R6Class(
     #' @param term_unit Unit of the term
     #' @param compounded Compounding method
     #' @param currency Currency symbol
+    #' @param downpayment Downpayment amount
     initialize = function(
-      principal, interest, term,
-      term_unit = "years", compounded = "monthly", currency = "$"
+      principal,
+      interest,
+      term,
+      term_unit = "years",
+      compounded = "monthly",
+      currency = "$",
+      downpayment = 0
       ) {
       term_units <- c("days", "months", "years")
       compounding_methods <- c("daily", "monthly", "annually")
@@ -57,19 +67,22 @@ Loan <- R6::R6Class(
         "`term_unit` must be 'days', 'years' or 'months'" =
           term_unit %in% c("days", "years", "months"),
         '`compounded` must be "daily", "monthly" or "annually"' =
-          compounded %in% c("daily", "monthly", "annually")
+          compounded %in% c("daily", "monthly", "annually"),
+        "`downpayment` must be a positive value" =
+          downpayment >= 0
       )
       periods <- list(
         daily = 365,
         monthly = 12,
         annually = 1
       )
-      self$principal <- as.double(principal)
+      self$principal <- as.double(principal - downpayment)
       self$interest <- as.double(interest * 100) / 100
       self$term <- term
       self$term_unit <- term_unit
       self$compounded <- compounded
       self$currency <- currency
+      self$downpayment <- downpayment
       self$n_periods <- periods[[compounded]]
       self$schedule <- self$amortize()
     },
@@ -138,6 +151,7 @@ Loan <- R6::R6Class(
     amortize = function() {
       schedule <- tibble::tibble()
       total_interest <- 0
+      total_principal <- 0
       balance <- self$principal
 
       for (i in 1:(self$term * self$n_periods)) {
@@ -145,6 +159,7 @@ Loan <- R6::R6Class(
         interest_payment <- balance * (self$interest / self$n_periods)
         principal_payment <- monthly_payment - interest_payment
         total_interest <- total_interest + interest_payment
+        total_principal <- total_principal + principal_payment
         balance <- balance - principal_payment
 
         schedule <- dplyr::bind_rows(schedule, list(
@@ -153,11 +168,21 @@ Loan <- R6::R6Class(
           interest = round(interest_payment, 2),
           principal = round(principal_payment, 2),
           total_interest = round(total_interest, 2),
+          total_principal = round(total_principal, 2),
           balance = round(balance, 2)
         ))
       }
 
       schedule
+    },
+
+    #' @description
+    #' Return the tipping point of the loan which is the payment number when you begin paying off more principal than interest in a payment
+    tipping_point = function(){
+      self$schedule %>%
+        dplyr::filter(interest < principal) %>%
+        dplyr::slice(1) %>%
+        dplyr::pull(number)
     },
 
     #' @description
@@ -174,6 +199,8 @@ Loan <- R6::R6Class(
     #' @description
     #' Print a summary of the loan
     summarize = function() {
+      cat(sprintf("Home price:               %s%11.2f\n", self$currency, self$principal + self$downpayment))
+      cat(sprintf("Downpayment:              %s%11.2f\n", self$currency, self$downpayment))
       cat(sprintf("Original Balance:         %s%11.2f\n", self$currency, self$principal))
       cat(sprintf("Interest Rate:             %11.2f%%\n", self$interest * 100))
       cat(sprintf("APY:                       %11.2f%%\n", self$apy()))
@@ -193,6 +220,22 @@ Loan <- R6::R6Class(
     print = function() {
       cat(sprintf("<Loan principal=%.2f, interest=%.2f, term=%.1f>", self$principal, self$interest, self$term))
       invisible(self)
+    },
+
+    #' @description
+    #' Plot the amortization schedule of the loan
+    plot = function() {
+      ggplot2::ggplot(self$schedule) +
+        ggplot2::geom_line(ggplot2::aes(x = number, y = balance, color = "Loan Balance")) +
+        ggplot2::geom_line(ggplot2::aes(x = number, y = total_principal, color = "Principal Paid")) +
+        ggplot2::geom_line(ggplot2::aes(x = number, y = total_interest, color = "Interest Paid")) +
+        ggplot2::scale_color_manual(values = c("Loan Balance" = "#0041a7",
+                                               "Principal Paid" = "#4898ff",
+                                               "Interest Paid" = "#88dd9b")) +
+        ggplot2::scale_y_continuous(labels = scales::dollar_format()) +  # Apply dollar formatting
+        ggplot2::labs(title = "Amortization Schedule", x = "Payment Number", y = "Balance ($)", color = "Legend") +
+        ggplot2::theme_minimal() +
+        ggplot2::theme(legend.position = "bottom")
     }
 
   )

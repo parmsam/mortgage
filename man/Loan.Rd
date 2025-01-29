@@ -24,6 +24,8 @@ A loan used to create and calculate various mortgage statistics.
 \item{\code{n_periods}}{Number of periods}
 
 \item{\code{schedule}}{Amortization schedule}
+
+\item{\code{downpayment}}{Downpayment amount}
 }
 \if{html}{\out{</div>}}
 }
@@ -41,9 +43,11 @@ A loan used to create and calculate various mortgage statistics.
 \item \href{#method-Loan-apy}{\code{Loan$apy()}}
 \item \href{#method-Loan-monthly_payment}{\code{Loan$monthly_payment()}}
 \item \href{#method-Loan-amortize}{\code{Loan$amortize()}}
+\item \href{#method-Loan-tipping_point}{\code{Loan$tipping_point()}}
 \item \href{#method-Loan-split_payment}{\code{Loan$split_payment()}}
 \item \href{#method-Loan-summarize}{\code{Loan$summarize()}}
 \item \href{#method-Loan-print}{\code{Loan$print()}}
+\item \href{#method-Loan-plot}{\code{Loan$plot()}}
 \item \href{#method-Loan-clone}{\code{Loan$clone()}}
 }
 }
@@ -59,7 +63,8 @@ Create a new \code{Loan} object.
   term,
   term_unit = "years",
   compounded = "monthly",
-  currency = "$"
+  currency = "$",
+  downpayment = 0
 )}\if{html}{\out{</div>}}
 }
 
@@ -77,6 +82,8 @@ Create a new \code{Loan} object.
 \item{\code{compounded}}{Compounding method}
 
 \item{\code{currency}}{Currency symbol}
+
+\item{\code{downpayment}}{Downpayment amount}
 }
 \if{html}{\out{</div>}}
 }
@@ -182,6 +189,16 @@ Return the amortization schedule of the loan
 
 }
 \if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Loan-tipping_point"></a>}}
+\if{latex}{\out{\hypertarget{method-Loan-tipping_point}{}}}
+\subsection{Method \code{tipping_point()}}{
+Return the tipping point of the loan which is the payment number when you begin paying off more principal than interest in a payment
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Loan$tipping_point()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Loan-split_payment"></a>}}
 \if{latex}{\out{\hypertarget{method-Loan-split_payment}{}}}
 \subsection{Method \code{split_payment()}}{
@@ -217,6 +234,16 @@ Print a summary of the loan
 Print the loan object
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Loan$print()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Loan-plot"></a>}}
+\if{latex}{\out{\hypertarget{method-Loan-plot}{}}}
+\subsection{Method \code{plot()}}{
+Plot the amortization schedule of the loan
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Loan$plot()}\if{html}{\out{</div>}}
 }
 
 }
